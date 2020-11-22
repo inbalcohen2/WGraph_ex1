@@ -14,11 +14,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 
-class WGraph_Algo implements weighted_graph_algorithms,Serializable {
+import ex1.src.WGraph_DS.NodeInfo;
+
+public class WGraph_Algo implements weighted_graph_algorithms,Serializable {
 	private weighted_graph _graph;
 
 	//Create a new graph
-	WGraph_Algo(){
+	public WGraph_Algo(){
 
 		_graph=new WGraph_DS();
 	}
@@ -170,7 +172,7 @@ so if one of the neighbors is already updated with weight because we reached it 
 		while((!queue.isEmpty())){
 			node_info u=queue.poll();
 			//Run through the edges(with weight) of neighbor of this node (u) 
-			for (edges e : u.getEdges().values()){
+			for (edges e : ((NodeInfo) u).getEdges().values()){
 				//if not 
 				if(!Visited_graph.get(e.getDestination().getKey())) {
 					//dist is the weight of the node consisting of the weight of 
@@ -254,7 +256,7 @@ so if one of the neighbors is already updated with weight because we reached it 
 		while((!queue.isEmpty())){
 			node_info u=queue.poll();
 			//Run through the edges(with weight) of neighbor of this node (u) 
-			for (edges e : u.getEdges().values()){
+			for (edges e : ((NodeInfo) u).getEdges().values()){
 				//if not 
 				if(!Visited_graph.get(e.getDestination().getKey())) {
 					//dist is the weight of the node consisting of the weight of 
@@ -309,19 +311,20 @@ so if one of the neighbors is already updated with weight because we reached it 
 	public boolean save(String file) {
 		//holds the wished name to save by;
 		//String file = file_S;
+		boolean flag=false;
 		try
-		{    
+		{
+			flag=true;
 			FileOutputStream file_S = new FileOutputStream(file); //writing data to file;  
 			ObjectOutputStream out = new ObjectOutputStream(file_S);  //serilaze the object to the file
 			out.writeObject(this._graph); 
 			out.close();  
 			file_S.close(); 
-			return true;
+			
+			
 		}   
-		catch(IOException ex) {
-			System.out.println("IOException is caughtf");
-			return false;
-		}
+		catch(Exception ex) {}
+		return flag;
 	}
 	/**
 	 * This method load a graph to this graph algorithm.
@@ -333,26 +336,18 @@ so if one of the neighbors is already updated with weight because we reached it 
 	 */
 	@Override
 	public boolean load(String file) {
+		boolean flag=false;
 		try
 		{    
+			flag=true;
 			FileInputStream file_S = new FileInputStream(file); 
 			ObjectInputStream in = new ObjectInputStream(file_S);
 			this._graph= (weighted_graph)in.readObject(); 
 			in.close(); 
 			file_S.close();
-			System.out.println("Object has been deserialized");
-			return true;
 		}    
+		catch(Exception ex) { } 
 
-		catch(IOException ex) 
-		{     System.out.println("IOException is caught");
-		return false;
-		} 
-
-		catch(ClassNotFoundException ex) 
-		{    System.out.println("ClassNotFoundException is caught");
-		return false;
-		} 
-
+		return flag;
 	}
 }

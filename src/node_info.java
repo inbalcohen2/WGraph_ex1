@@ -35,8 +35,7 @@ public interface node_info {
 
 	
     
-    public  HashMap<Integer, edges> getEdges();
-	public int compareTo(node_info arg0);
+   
  
 }
 
