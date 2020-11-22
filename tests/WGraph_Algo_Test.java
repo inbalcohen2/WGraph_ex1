@@ -9,8 +9,6 @@ import ex1.src.WGraph_Algo;
 import ex1.src.WGraph_DS;
 import ex1.src.weighted_graph;
 import ex1.src.weighted_graph_algorithms;
-import ex1.src.*
-import ex1.src.*
 
 class WGraph_Algo_Test {
 
@@ -117,6 +115,29 @@ class WGraph_Algo_Test {
 
 	@Test
 	void test_save_load() {
-			
+		
+		
+		weighted_graph g1= new WGraph_DS();
+		weighted_graph_algorithms ga1= new WGraph_Algo();
+		g1.addNode(1); g1.addNode(2); 
+		g1.addNode(3); g1.addNode(5);
+		g1.addNode(4); g1.addNode(7);
+		g1.addNode(6); g1.addNode(9);
+		g1.addNode(8); g1.addNode(10);
+
+
+		g1.connect(1, 2, 2.3);
+		g1.connect(1,4,4.1);
+		g1.connect(1,6,6.5);
+		g1.connect(2,3,3.4);
+		g1.connect(2,4,1.1);
+		g1.connect(2,5,8.4);
+		g1.connect(3,4,9.5);
+		ga1.init(g1);
+
+ 	assertTrue(ga.save("text_graph"));
+ 	assertTrue(ga.load("text_graph"));
+		
+		
 	}
 }
